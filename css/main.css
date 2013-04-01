@@ -1,0 +1,54 @@
+body {
+	margin: 0;
+	padding: 0 !important;
+	overflow: hidden;
+}
+
+#chatbox
+{
+	width:48%;
+	min-width: 48%;
+	min-height: 200px;
+	padding: 5px;
+	display:inline-block;
+	background-color: #FFC;/* temp*/
+}
+
+#searchbox
+{
+	width:48%;
+	min-width: 48%;
+	min-height: 200px;	
+	padding: 5px;
+	background-color: #FCC; /* temp*/
+	display:inline-block;
+	
+}
+
+#detailsbox
+{
+	width:100%;
+	min-width: 100%;
+	min-height: 600px;	
+	padding: 5px;
+	display:inline-block;
+
+	background-color: #CFC; /* temp*/	
+}
+
+
+
+#navbar {
+	width:100%;
+	min-width: 100%;
+	min-height: 30px;	
+	padding: 5px;
+	display:inline-block;
+	background-color: #CCC; /* temp*/	
+}
+
+
+
+
+
+
