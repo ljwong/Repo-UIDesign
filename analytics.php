@@ -10,24 +10,17 @@
     
 	<script type="text/javascript" src="js/lib/d3.v3.min.js"></script>
 
-	<script type="text/javascript" src="js/view/chat.js"></script>
-	<script type="text/javascript" src="js/view/details-history.js"></script>
-	<script type="text/javascript" src="js/view/details-treatment.js"></script>
-	<script type="text/javascript" src="js/view/search.js"></script>
 	<script type="text/javascript" src="js/view/visualizations.js"></script>
 
 	<link type="text/css" href="css/main.css" media="all" rel="stylesheet" />
     
-	<link type="text/css" href="css/chat.css" media="all" rel="stylesheet" />
-	<link type="text/css" href="css/details-history.css" media="all" rel="stylesheet" />
-	<link type="text/css" href="css/details-treatment.css" media="all" rel="stylesheet" />
-	<link type="text/css" href="css/search.css" media="all" rel="stylesheet" />
 	<link type="text/css" href="css/visualizations.css" media="all" rel="stylesheet" />
     
 	<script type="text/javascript">
 		$(document).ready(function(){
 			// This gets called when the app is ready.
-			
+			console.log("ready");
+			$( "#tabs" ).tabs();
 			
 		});
 		
@@ -36,28 +29,26 @@
 <body>
 
 	<div id="navbar" class="">
-    	<div style="position:absolute; top: 5px; left: 5px;"><img src="img/logo.png" width="32px" height="32px"; /></div>
-        <div align="center" class="welcome-div" >Welcome, Dr. Zhou!</div>
+        <div align="center" class="welcome-div" >Welcome Dr. Zhou!</div>
         <div class="menubar" align="right">
-            <div class="menu-button fade">Home</div>
-            <div class="menu-button menu-deco"><a href="analytics.php" class="menu-link" target="_blank">Trends</a></div>
+            <div class="menu-button menu-deco"><a href="index.php" class="menu-link">Home</a></div>
+            <div class="menu-button fade">Trends</div>
             <div class="menu-button menu-deco" onClick="alert('Account management and design is not within the scope of this project, therefore this feature has been disabled.');">Account</div>
         </div>
 	</div>
-	
-    <div id="searchbox">
-        <!-- Search box HTML code comes here.-->
     
+	<div id="tabs">
+         <ul>
+            <li><a href="#visual-1">Claim History</a></li>
+            <li><a href="#visual-2">Top Charts</a></li>    
+            <li><a href="#visual-3">People List </a></li>
+        </ul>
+        <div id="visual-1">
+        ac
+        </div>    
+        <div id="visual-2"></div>
+        <div id="visual-3"></div>
 	</div>
-
-	<div id="chatbox">
-        <!-- Chat box HTML code comes here.-->
-        
-	</div>
-	<div id="detailsbox">
-        <!-- Details box HTML code comes here.-->
-	</div>
-	
 
 </body>
 </html>

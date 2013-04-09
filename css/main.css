@@ -44,11 +44,37 @@ body {
 	min-height: 30px;	
 	padding: 5px;
 	display:inline-block;
-	background-color: #CCC; /* temp*/	
+}
+.welcome-div{
+	margin-top:5px;
+}
+.menubar{
+	width: 50%;
+	position:absolute;
+	top:0px;
+	left:50%;
+	vertical-align:central;	
+}
+.menu-button{
+	margin-top:7px;
+	margin-right:3px;
+	padding:5px;
+	display:inline-block;
+}
+.menu-deco:hover{
+	border-bottom:thick solid #900;
+	cursor:pointer;
+	cursor:hand;
 }
 
-
-
-
-
+.menu-link{
+	
+}
+.menu-link:link    {color:black; text-decoration:none;}
+.menu-link:visited {color:black; text-decoration:none;}
+.menu-link:hover   {color:black; text-decoration:none;}
+.menu-link:active  {color:black; text-decoration:none;}
+.fade{
+	color: #CCC;
+}
 
