@@ -6,8 +6,8 @@ body {
 
 #chatbox
 {
-	width:48%;
-	min-width: 48%;
+	width:38%;
+	min-width: 38%;
 	min-height: 200px;
 	padding: 5px;
 	display:inline-block;
@@ -16,8 +16,8 @@ body {
 
 #searchbox
 {
-	width:48%;
-	min-width: 48%;
+	width:58%;
+	min-width: 58%;
 	min-height: 200px;	
 	padding: 5px;
 	background-color: #FCC; /* temp*/

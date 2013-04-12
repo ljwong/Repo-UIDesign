@@ -47,12 +47,14 @@
 	
     <div id="searchbox">
         <!-- Search box HTML code comes here.-->
-    
+		
 	</div>
 
 	<div id="chatbox">
         <!-- Chat box HTML code comes here.-->
-        
+        <div style="height:300px;">
+		<iframe style='overflow:hidden;width:100%;height:100%;' frameborder='0' border='0' src="http://chat.zoho.com/mychat.sas?u=0cb901437ee184535547739b0c0e4f1d&chaturl=David%20Zhao&V=000000-70a9e1-eff4f9-70a9e1-Speak%20to%20a%20Representative"></iframe>
+		</div>
 	</div>
 	<div id="detailsbox">
         <!-- Details box HTML code comes here.-->
