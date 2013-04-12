@@ -51,13 +51,14 @@
 <body>
 
 	<div id="navbar" class="">
-    	<div style="position:absolute; top: 5px; left: 5px;"><img src="img/logo.png" width="32px" height="32px"; /></div>
+    	<div style="position:absolute; top: 5px; left: 5px;"><img src="img/logo.png" width="32px" height="32px"; /> <div style="position:absolute; top:5px; left:40px; width: 300px;"><span >EZ Insurance Verification System</span></div></div>
         <div align="center" class="welcome-div" >Welcome, Dr. Zhou!</div>
         <div class="menubar" align="right">
             <div class="menu-button fade">Home</div>
             <div class="menu-button menu-deco"><a href="analytics.php" class="menu-link" target="_blank">Trends</a></div>
             <div class="menu-button menu-deco" onClick="alert('Account management and design is not within the scope of this project, therefore this feature has been disabled.');">Account</div>
-        </div>
+             <div class="menu-button menu-deco" onClick="alert('Account management and design is not within the scope of this project, therefore this feature has been disabled.');">Log Out</div>
+       </div>
 	</div>
 	
     <!-- Search box HTML code comes here.-->
