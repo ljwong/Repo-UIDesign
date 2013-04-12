@@ -6,23 +6,23 @@ body {
 
 #chatbox
 {
-	width:38%;
-	min-width: 38%;
-	min-height: 200px;
+	width:500px;
+	margin-left:850px;
+	height: 350px;
 	padding: 5px;
 	display:inline-block;
 	background-color: #FFC;/* temp*/
+	position:relative;
 }
 
 #searchbox
 {
-	width:58%;
-	min-width: 58%;
-	min-height: 200px;	
+	width:830px;
+	height: 350px;	
 	padding: 5px;
 	background-color: #FCC; /* temp*/
 	display:inline-block;
-	
+	position:absolute;
 }
 
 #detailsbox
