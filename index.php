@@ -25,9 +25,24 @@
 	<link type="text/css" href="css/visualizations.css" media="all" rel="stylesheet" />
     
 	<script type="text/javascript">
+		var g_patient_info = new Array();
+        var g_treatment_info = new Array();
+
 		$(document).ready(function(){
 			// This gets called when the app is ready.
 			
+            $.getJSON('patient_info.json',
+                function(data) {
+                    g_patient_info = data.patient_info;
+                }
+            );
+
+            $.getJSON('treatment_info.json',
+                function(data) {
+                    g_treatment_info = data.treatment_info;
+                }
+            );            
+
 			
 		});
 		
@@ -45,9 +60,40 @@
         </div>
 	</div>
 	
+    <!-- Search box HTML code comes here.-->
     <div id="searchbox">
-        <!-- Search box HTML code comes here.-->
-		
+    	<p>Search For Patient</p>
+
+    	<!-- Two search tabs -->
+    	<ul class="searchtabs">
+    		<li class="searchactive">
+    			<a href="#" rel="#existtab" class="searchtab"> Search Existing Patient </a>
+    		</li>
+    		<li><a href="#" rel="#generaltab" class="searchtab"> Quick Insurance Search </a></li>
+    	</ul>
+    	<div class="clear"></div>
+
+    	<!-- content of each tab -->
+    	<div class="searchtab_content_container">
+    		<div id="existtab" class="searchtab_content searchtab_content_active">
+        		<form name="searchexist">
+        			NAME : <input type="text" id="existname"><br>
+        			DOB (mm/dd/yyyy) : <input type="text" id="existdob" size=11><br><br><br>
+        			<button onclick="SearchForExistingPatient();"> Search Existing Patient </button>
+        		</form>
+        	</div>
+        	<div id="generaltab" class="searchtab_content">
+        		<form name="searchgeneral">
+        			NAME : <input type="text" id="generalname"><br>
+        			SS# : <input type="text" id="ssnum"><br>
+        			INSURANCE : <input type="text" id="insurance"><br>
+        			INSURANCE# : <input type="text" id="insurancenum"><br>
+        			TREATMENT : <input type="text" id="treatment"><br>
+        			DOB (mm/dd/yyyy) : <input type="text" id="generaldob" size=11><br>
+        			<button onclick="GeneralSearch()"> Search Insurance </button>
+        		</form>
+        	</div>
+        </div>
 	</div>
 
 	<div id="chatbox">
@@ -56,8 +102,13 @@
 		<iframe style='overflow:hidden;width:100%;height:100%;' frameborder='0' border='0' src="http://chat.zoho.com/mychat.sas?u=0cb901437ee184535547739b0c0e4f1d&chaturl=David%20Zhao&V=000000-70a9e1-eff4f9-70a9e1-Speak%20to%20a%20Representative"></iframe>
 		</div>
 	</div>
+	
+	<!-- Details box HTML code comes here.-->
 	<div id="detailsbox">
-        <!-- Details box HTML code comes here.-->
+        <p id="searchresults" class="printsearchresult"></p><br>
+        <p id="searchstatus" class="printmulmatches"></p>
+
+        <table id="searchresulttable" border="1"></table> 
 	</div>
 	
 
