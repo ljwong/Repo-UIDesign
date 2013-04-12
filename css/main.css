@@ -17,8 +17,14 @@ body {
 
 #searchbox
 {
+<<<<<<< HEAD
 	width:830px;
 	height: 350px;	
+=======
+	width:50%;
+	min-width: 50%;
+	min-height: 200px;	
+>>>>>>> made search box a jquery tab, fixed some issues related to search box.
 	padding: 5px;
 	background-color: #FCC; /* temp*/
 	display:inline-block;

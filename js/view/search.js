@@ -1,8 +1,9 @@
 //load this script when page loads
 $(document).ready(
-	
+/*
 	function() {	
 		// if anything with class of "searchtabs" is clicked
+		
 		$('.searchtab').click(
 			function() {
 				// make current tab inactive
@@ -15,7 +16,7 @@ $(document).ready(
 				$(this.rel).addClass('searchtab_content_active');
 			}
 		);
-	}
+	}*/
 );
 
 	// Function that grabs search values from user and searches for an
@@ -29,7 +30,7 @@ $(document).ready(
 		$("#existname").val("");
 		$("#existdob").val("");
 
-		$.getJSON('patient_info.json',
+		$.getJSON('data/patient_info.json',
 			function(data) {
 				var patientlist = new Array();
 				var j = 0;

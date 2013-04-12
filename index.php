@@ -2,7 +2,6 @@
 <html>
 <head>
 	<title>WYPZZ Insurance Verification System</title>
-
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
 <link type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/start/jquery-ui.css" rel="stylesheet" />
@@ -30,19 +29,20 @@
 
 		$(document).ready(function(){
 			// This gets called when the app is ready.
-			
-            $.getJSON('patient_info.json',
+			$("#searchtabs").tabs();
+            $.getJSON('data/patient_info.json',
                 function(data) {
-                    g_patient_info = data.patient_info;
-                }
-            );
+                    g_patient_info = data;
+					
+				});
 
-            $.getJSON('treatment_info.json',
+            $.getJSON('data/treatment_info.json',
                 function(data) {
-                    g_treatment_info = data.treatment_info;
+                    g_treatment_info = data;
+					
                 }
             );            
-
+			
 			
 		});
 		
@@ -66,25 +66,23 @@
     	<p>Search For Patient</p>
 
     	<!-- Two search tabs -->
-    	<ul class="searchtabs">
-    		<li class="searchactive">
-    			<a href="#" rel="#existtab" class="searchtab"> Search Existing Patient </a>
+        <div id="searchtabs">
+        <ul >
+    		<li class="">
+    			<a href="#existtab" class="searchtab"> Search Existing Patient </a>
     		</li>
-    		<li><a href="#" rel="#generaltab" class="searchtab"> Quick Insurance Search </a></li>
+    		<li><a href="#generaltab" class="searchtab"> Quick Insurance Search </a></li>
     	</ul>
-    	<div class="clear"></div>
-
-    	<!-- content of each tab -->
-    	<div class="searchtab_content_container">
-    		<div id="existtab" class="searchtab_content searchtab_content_active">
-        		<form name="searchexist">
+        <!-- content of each tab -->
+    		<div id="existtab" class="search-tab-content">
+        		
         			NAME : <input type="text" id="existname"><br>
         			DOB (mm/dd/yyyy) : <input type="text" id="existdob" size=11><br><br><br>
         			<button onclick="SearchForExistingPatient();"> Search Existing Patient </button>
-        		</form>
+        		
         	</div>
-        	<div id="generaltab" class="searchtab_content">
-        		<form name="searchgeneral">
+        	<div id="generaltab" class="search-tab-content">
+        		
         			NAME : <input type="text" id="generalname"><br>
         			SS# : <input type="text" id="ssnum"><br>
         			INSURANCE : <input type="text" id="insurance"><br>
@@ -92,11 +90,15 @@
         			TREATMENT : <input type="text" id="treatment"><br>
         			DOB (mm/dd/yyyy) : <input type="text" id="generaldob" size=11><br>
         			<button onclick="GeneralSearch()"> Search Insurance </button>
-        		</form>
+        		
         	</div>
         </div>
-	</div>
+    	
+    	<!--<div class="clear"></div>-->
 
+    	
+	</div>
+	<div style="min-width: 10px; display:inline-block;"></div>
 	<div id="chatbox">
         <!-- Chat box HTML code comes here.-->
         <div style="height:350px;">
