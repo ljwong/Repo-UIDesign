@@ -41,8 +41,17 @@ function Details()
 		);
 	}
 	
-	this.convertSearchTab = function()
+	this.addPatientTab = function(id)
 	{
+		//console.log();
+		if($("#tabs-"+id).length > 0)
+		{
+			$( "#tabs" ).tabs("select", "#tabs-"+id);
+			return;
+		}
+		$( "#tabs" ).tabs("add", "#tabs-"+id, g_patient_info[id]['name']);		
+		this.PatientTab (id, g_patient_info[id], true);
+		$("#tabs").tabs("select", "#tabs-"+id);
 		
 	}
 	
@@ -63,31 +72,43 @@ function Details()
 	 // $(".inner-tab").tabs()//.addClass( "ui-tabs-vertical ui-helper-clearfix" );
 		//$( ".inner-tab li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );	
 	  $( "#tabs" ).tabs({
-		  selected:1,
-		  closable:true 
+		  selected:1 
 		  });	
 	  
 	}
 	
-	this.PatientTab = function (id, val)
+	this.PatientTab = function (id, val, skipList)
 	{
 		
-		$('#list-of-patients').append(
-			$("<li/>").append(
-				$( "<a/>" )
-					.attr("href", "#tabs-"+ id)
-					.append(val['name'])
-			)
-		);
+		if(!skipList)
+		{
+			$('#list-of-patients').append(
+				$("<li/>").append(
+					$( "<a/>" )
+						.attr("href", "#tabs-"+ id)
+						.append(val['name'])
+				)
+			);
+			$('#tabs').append(
+				$("<div/>")
+				.attr("id", "tabs-" + id)
+				.append($("<div/>")
+					.append(createSideBar())
+				)
+			);
+		}
+		else
+		{
+			
+			$("#tabs-" + id)
+				.append($("<div/>")
+					.append(createSideBar())
+				)
+			;
+		}
 		
 		
-		$('#tabs').append(
-			$("<div/>")
-			.attr("id", "tabs-" + id)
-			.append($("<div/>")
-				.append(createSideBar())
-			)
-		);
+		
 			
 		
 		function createSideBar (){
@@ -100,7 +121,7 @@ function Details()
 						.append( $("<div/>")
 							.addClass("sidebar-element") 
 							.click(function(){
-									console.log("here 1");
+									
 									$(".pd-"+id).css("display", "none");
 									$("#coverage_plan_tab"+id).css("display", "inline-block");
 									})
@@ -115,7 +136,7 @@ function Details()
 							.append( $("<a/>")
 								.attr("href", "#patient_info_tab")
 								.click(function(){
-									console.log("here 2");
+									
 									$(".pd-"+id).css("display", "none");
 									$("#patient_info_tab"+id).css("display", "inline-block");
 									})
@@ -126,7 +147,7 @@ function Details()
 						.append( $("<div/>") 
 							.addClass("sidebar-element")
 							.click(function(){
-									console.log("here 3");
+									
 									$(".pd-"+id).css("display", "none");
 									$("#patient_history_tab"+id).css("display", "inline-block");
 									})
@@ -139,7 +160,7 @@ function Details()
 						.append( $("<div/>") 
 							.addClass("sidebar-element")
 							.click(function(){
-									console.log("here 4");
+									
 									$(".pd-"+id).css("display", "none");
 									$("#treatment_plan_tab"+id).css("display", "inline-block");
 									})
@@ -233,7 +254,6 @@ function Details()
 					$("<p/>").append('Treatment: ' + val['patientHistory']['history'][index]['treatment'])
 				)                
             });
-			console.log(div);
 			return div;
 		};
 		function createTreatmentPlan(){

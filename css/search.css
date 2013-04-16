@@ -75,3 +75,10 @@ div.clear {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 24px;
 }
+
+.search-header{
+	background-color: #999;
+}
+.search-row:hover{
+	background-color: #CCC;
+}

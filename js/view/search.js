@@ -33,17 +33,18 @@ $(document).ready(
 		var patientlist = new Array();
 		var j = 0;
 
-		for (var i in data.patient_info) {
-			if(data.patient_info[i].name == existname || data.patient_info[i].DOB == existdob) {
+		for (var i in data) {
+			if(data[i]['name'].toLowerCase() == existname.toLowerCase() || data[i]['DOB'] == existdob) {
 				patientlist[j] = new Object();
-				patientlist[j].fullname = data.patient_info[i].name;
-				patientlist[j].dob = data.patient_info[i].DOB;
-				patientlist[j].street = data.patient_info[i].address.street;
-				patientlist[j].city = data.patient_info[i].address.city;
-				patientlist[j].state = data.patient_info[i].address.state;
-				patientlist[j].zip = data.patient_info[i].address.zip;
-				patientlist[j].insurance = data.patient_info[i].insurance;
-				patientlist[j].insurancenum = data.patient_info[i].insuranceNumber;
+				patientlist[j].id = i;
+				patientlist[j].fullname = data[i].name;
+				patientlist[j].dob = data[i].DOB;
+				patientlist[j].street = data[i].address.street;
+				patientlist[j].city = data[i].address.city;
+				patientlist[j].state = data[i].address.state;
+				patientlist[j].zip = data[i].address.zip;
+				patientlist[j].insurance = data[i].insurance;
+				patientlist[j].insurancenum = data[i].insuranceNumber;
 				j++;
 			}
 		}
@@ -53,7 +54,7 @@ $(document).ready(
 
 	// This functions takes in an array of patients and displays them in a table.
 	function CreateResultsTable(patientlist) {
-		console.log("select");
+		//console.log("select");
 		$("#tabs").tabs("select", 0);
 		// checks if no patient is found
 		if(patientlist.length == 0) {
@@ -64,7 +65,7 @@ $(document).ready(
 		}
 		else {
 			$("#searchresults").text("SEARCH RESULTS FOR \"" + existname + "\" :");
-			$("#searchstatus").text("There are multiple matches in our database. Please select the patient you want.");
+			$("#searchstatus").text("The following patient(s) are found. Please select the patient you are looking for.");
 		}
 
 		// clears current table for new search
@@ -72,7 +73,9 @@ $(document).ready(
 
 		// headers for the table columns
 		$("#searchresulttable").append(
-			$("<tr>").append(
+			$("<tr>")
+			.addClass("search-header")
+			.append(
 				$("<th>").append("NAME", "</th>"),
 				$("<th>").append("DOB", "</th>"),
 				$("<th>").append("ADDRESS", "</th>"),
@@ -81,12 +84,22 @@ $(document).ready(
 		);
 
 		// loops through every patient and store patient info in a table.
+		var temp;
 		for(var i=0; i < patientlist.length; i++) {
+			temp = patientlist[i].id;
 			$("#searchresulttable").append(
-				$("<tr>").append(
-					$("<td>").append(
+				$("<tr>")
+				.css("cursor", "pointer")
+				.css("cursor", "hand")			
+				.click(function(){
+					
+					Details.addPatientTab(temp);
+					})
+				.addClass("search-row")
+				.append(
+					$("<td>")
+					.append(
 						$("<a>")
-							.attr("href", "#")
 							.append(patientlist[i].fullname, 
 						"</a>"),
 					"</td>"),
@@ -135,20 +148,22 @@ $(document).ready(
 		var j = 0;
 		var treatmentfound = 0;
 
-		for (var i in data.patient_info) {
-			for (var k in data.patient_info.patientHistory.history) {
-				if (data.patient_info.patientHistory.history[k].treatment == treatment)
+		for (var i in data) {
+			for (var k in data[i]['patientHistory']['history']) {
+				if (data[i]['patientHistory']['history'][k]['treatment'] == treatment)
 					treatmentfound = 1;
 			}
-			if(data.patient_info[i].name == generalname             || 
-			   data.patient_info[i].DOB == generaldob               ||
-			   data.patient_info[i].ssn == ssnum                    || 
-			   data.patient_info[i].insurance == insurance          ||
-			   data.patient_info[i].insuranceNumber == insurancenum ||
+			if(data[i]['name'].toLowerCase() == generalname.toLowerCase()             || 
+			   data[i]['DOB'] == generaldob               ||
+			   data[i]['ssn'] == ssnum                    || 
+			   data[i]['insurance'] == insurance          ||
+			   data[i]['insuranceNumber'] == insurancenum ||
 			   treatmentfound == 1) {
-
+				   
+				Details.addPatientTab(i);
+				return 0;
 			}
 		}
 
-		return patientlist;
+		return -1;
 	}
