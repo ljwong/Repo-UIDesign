@@ -29,34 +29,32 @@ $(document).ready(
 		// clear all fields after button press
 		$("#existname").val("");
 		$("#existdob").val("");
+		data = g_patient_info;
+		var patientlist = new Array();
+		var j = 0;
 
-		$.getJSON('data/patient_info.json',
-			function(data) {
-				var patientlist = new Array();
-				var j = 0;
-
-				for (var i in data.patient_info) {
-					if(data.patient_info[i].name == existname || data.patient_info[i].DOB == existdob) {
-						patientlist[j] = new Object();
-						patientlist[j].fullname = data.patient_info[i].name;
-						patientlist[j].dob = data.patient_info[i].DOB;
-						patientlist[j].street = data.patient_info[i].address.street;
-						patientlist[j].city = data.patient_info[i].address.city;
-						patientlist[j].state = data.patient_info[i].address.state;
-						patientlist[j].zip = data.patient_info[i].address.zip;
-						patientlist[j].insurance = data.patient_info[i].insurance;
-						patientlist[j].insurancenum = data.patient_info[i].insuranceNumber;
-						j++;
-					}
-				}
-
-				CreateResultsTable(patientlist);
+		for (var i in data.patient_info) {
+			if(data.patient_info[i].name == existname || data.patient_info[i].DOB == existdob) {
+				patientlist[j] = new Object();
+				patientlist[j].fullname = data.patient_info[i].name;
+				patientlist[j].dob = data.patient_info[i].DOB;
+				patientlist[j].street = data.patient_info[i].address.street;
+				patientlist[j].city = data.patient_info[i].address.city;
+				patientlist[j].state = data.patient_info[i].address.state;
+				patientlist[j].zip = data.patient_info[i].address.zip;
+				patientlist[j].insurance = data.patient_info[i].insurance;
+				patientlist[j].insurancenum = data.patient_info[i].insuranceNumber;
+				j++;
 			}
-		);
+		}
+
+		CreateResultsTable(patientlist);
 	}
 
 	// This functions takes in an array of patients and displays them in a table.
 	function CreateResultsTable(patientlist) {
+		console.log("select");
+		$("#tabs").tabs("select", 0);
 		// checks if no patient is found
 		if(patientlist.length == 0) {
 			$("#searchresults").text("NO SEARCH RESULTS FOUND!");
@@ -133,27 +131,24 @@ $(document).ready(
 		$("#treatment").val("");
 
 		var patientlist = new Array();
-		$.getJSON('patient_info.json',
-			function(data) {
-				var j = 0;
-				var treatmentfound = 0;
+		data = g_patient_info;
+		var j = 0;
+		var treatmentfound = 0;
 
-				for (var i in data.patient_info) {
-					for (var k in data.patient_info.patientHistory.history) {
-						if (data.patient_info.patientHistory.history[k].treatment == treatment)
-							treatmentfound = 1;
-					}
-					if(data.patient_info[i].name == generalname             || 
-					   data.patient_info[i].DOB == generaldob               ||
-					   data.patient_info[i].ssn == ssnum                    || 
-					   data.patient_info[i].insurance == insurance          ||
-					   data.patient_info[i].insuranceNumber == insurancenum ||
-					   treatmentfound == 1) {
-
-					}
-				}
+		for (var i in data.patient_info) {
+			for (var k in data.patient_info.patientHistory.history) {
+				if (data.patient_info.patientHistory.history[k].treatment == treatment)
+					treatmentfound = 1;
 			}
-		);
+			if(data.patient_info[i].name == generalname             || 
+			   data.patient_info[i].DOB == generaldob               ||
+			   data.patient_info[i].ssn == ssnum                    || 
+			   data.patient_info[i].insurance == insurance          ||
+			   data.patient_info[i].insuranceNumber == insurancenum ||
+			   treatmentfound == 1) {
+
+			}
+		}
 
 		return patientlist;
 	}

@@ -10,7 +10,35 @@ function Details()
 	
 	this.addSearchTab = function()
 	{
-		
+		$('#list-of-patients').prepend(
+			$("<li/>").append(
+				$( "<a/>" )
+					.attr("href", "#tabs-search")
+					.append("Search Results")
+			)
+		);
+		$('#tabs').append(
+			$("<div/>")
+			.attr("id", "tabs-search")
+			.append($("<div/>")
+				.addClass("search-tab")		
+				.append(
+					$("<p/>")
+						.attr("id", "searchresults")
+						.addClass("printsearchresult")
+				)
+				.append(
+					$("<p/>")
+						.attr("id", "searchstatus")
+						.addClass("printmulmatches")
+				)
+				.append(
+					$("<table>")
+						.attr("id", "searchresulttable")
+						.attr("border", "1")
+				)
+			)
+		);
 	}
 	
 	this.convertSearchTab = function()
@@ -31,9 +59,13 @@ function Details()
 		counter++;
 	  });
 	  
+	  this.addSearchTab();
 	 // $(".inner-tab").tabs()//.addClass( "ui-tabs-vertical ui-helper-clearfix" );
 		//$( ".inner-tab li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );	
-	  $( "#tabs" ).tabs();	
+	  $( "#tabs" ).tabs({
+		  selected:1,
+		  closable:true 
+		  });	
 	  
 	}
 	
@@ -52,9 +84,9 @@ function Details()
 		$('#tabs').append(
 			$("<div/>")
 			.attr("id", "tabs-" + id)
-				.append($("<div/>")
-					.append(createSideBar())
-				)
+			.append($("<div/>")
+				.append(createSideBar())
+			)
 		);
 			
 		

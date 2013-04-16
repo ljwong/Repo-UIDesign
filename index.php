@@ -78,6 +78,7 @@
     		</li>
     		<li><a href="#generaltab" class="searchtab"> Quick Insurance Search </a></li>
     	</ul>
+        
         <!-- content of each tab -->
     		<div id="existtab" class="search-tab-content">
         		
