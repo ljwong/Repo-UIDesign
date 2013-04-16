@@ -1,0 +1,36 @@
+.patient-display
+{
+	width: 700px;
+	padding: 10px;
+	min-height: 500px;
+	vertical-align:top;
+}
+
+.sidebar
+{
+	width: 150px;
+	display:inline-block;
+	padding: 10px;
+	min-height: 500px;
+	vertical-align:top;
+}
+.sidebar-element
+{
+	min-height: 60px;
+	padding-top: 35px;
+	text-align:center;
+}
+.sidebar-element:hover
+{
+	background-color:#CCC;
+	cursor:pointer;
+	cursor:hand;
+}
+.sidebar-element a
+{
+}
+
+.sidebar-element a:link    {color:black; text-decoration:none;}
+.sidebar-element a:visited {color:black; text-decoration:none;}
+.sidebar-element a:hover   {color:black; text-decoration:none;}
+.sidebar-element a:active  {color:black; text-decoration:none;}

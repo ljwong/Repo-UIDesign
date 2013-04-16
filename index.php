@@ -11,7 +11,6 @@
 
 	<script type="text/javascript" src="js/view/chat.js"></script>
 	<script type="text/javascript" src="js/view/details-history.js"></script>
-	<script type="text/javascript" src="js/view/details-treatment.js"></script>
 	<script type="text/javascript" src="js/view/search.js"></script>
 	<script type="text/javascript" src="js/view/visualizations.js"></script>
 
@@ -22,30 +21,36 @@
 	<link type="text/css" href="css/details-treatment.css" media="all" rel="stylesheet" />
 	<link type="text/css" href="css/search.css" media="all" rel="stylesheet" />
 	<link type="text/css" href="css/visualizations.css" media="all" rel="stylesheet" />
+
     
 	<script type="text/javascript">
 		var g_patient_info = new Array();
         var g_treatment_info = new Array();
-
+   		var Details = new Details();
+		 
 		$(document).ready(function(){
 			// This gets called when the app is ready.
-			$("#searchtabs").tabs();
-            $.getJSON('data/patient_info.json',
-                function(data) {
-                    g_patient_info = data;
-					
-				});
+      $("#searchtabs").tabs();
+      $.getJSON('data/treatment_info.json', function(data){
+              
+              $.each(data, function(key, val) {
+                g_treatment_info[val['id']] = val;
+				
+              });
 
-            $.getJSON('data/treatment_info.json',
-                function(data) {
-                    g_treatment_info = data;
-					
-                }
-            );            
-			
+      }); 
+
+      $.getJSON('data/patient_info.json', function(data){
+              g_patient_info = data;
+			  Details.init();
+      });
+
+      
+		
+
+    	
 			
 		});
-		
 	</script>
 </head>
 <body>
@@ -107,13 +112,22 @@
 	</div>
 	
 	<!-- Details box HTML code comes here.-->
+    <!--
 	<div id="detailsbox">
         <p id="searchresults" class="printsearchresult"></p><br>
         <p id="searchstatus" class="printmulmatches"></p>
 
         <table id="searchresulttable" border="1"></table> 
+	</div>-->
+    <div id="detailsbox">
+		<div id="tabs">
+  	<ul id="list-of-patients">
+    		<!-- Patients tabs will be populated here-->
+ 		</ul>
+  	
+
+	</div><!--end of tabs-->
 	</div>
-	
 
 </body>
 </html>
