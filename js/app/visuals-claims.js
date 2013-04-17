@@ -5,13 +5,13 @@ function startClaimsVisual(visual_id)
     height = 500 - margin.top - margin.bottom;
 
 var x = d3.scale.ordinal()
-    .rangeRoundBands([0, width-205], .1);
+    .rangeRoundBands([0, width-55], .1);
 
 var y = d3.scale.linear()
     .rangeRound([height, 0]);
 
 var color = d3.scale.ordinal()
-    .range(["#FFE1B3", "#FFAA29", "#FF9500", "#8080FF"]);
+    .range(["#FFAA29", "#FFE1B3", "#b0abff", "#8080FF"]);
 
 var xAxis = d3.svg.axis()
     .scale(x)
@@ -64,7 +64,7 @@ d3.csv("data/visual-claims.csv", function(error, data) {
       .attr("y", 6)
       .attr("dy", ".71em")
       .style("text-anchor", "end")
-      .text("Attendees");
+      .text("Claims");
 
   var state = svg.selectAll(".month")
       .data(data)

@@ -38,3 +38,44 @@
 .sidebar-element a:visited {color:black; text-decoration:none;}
 .sidebar-element a:hover   {color:black; text-decoration:none;}
 .sidebar-element a:active  {color:black; text-decoration:none;}
+
+.treat-input-code
+{
+	min-width: 100px;
+}
+.treat-input-overwrite
+{
+	min-width: 150px;
+}
+.treat-input-insured
+{
+	min-width: 150px;
+}
+.treat-input-cost
+{
+	min-width: 100px;
+}
+.treat-input-treatment
+{
+	min-width: 400px;
+}
+.treat-total
+{
+	margin-top: 20px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	min-height: 50px;
+	border-top: 2px solid black;
+}
+.treat-input
+{
+	
+}
+.history-data
+{
+	min-width: 300px;
+}
+td
+{
+	text-align:center;
+}

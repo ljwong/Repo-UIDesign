@@ -5,7 +5,7 @@ function startPatientsVisual(visual_id)
     height = 500 - margin.top - margin.bottom;
 
 var x = d3.scale.ordinal()
-    .rangeRoundBands([0, width-205], .1);
+    .rangeRoundBands([0, width-55], .1);
 
 var y = d3.scale.linear()
     .rangeRound([height, 0]);
@@ -64,7 +64,7 @@ d3.csv("data/visual-patients.csv", function(error, data) {
       .attr("y", 6)
       .attr("dy", ".71em")
       .style("text-anchor", "end")
-      .text("Attendees");
+      .text("Patients");
 
   var state = svg.selectAll(".month")
       .data(data)

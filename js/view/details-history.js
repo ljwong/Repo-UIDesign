@@ -1,5 +1,6 @@
 function Details()
 {
+	var currentId = 0;
 	this.init = function ()
 	{
 		
@@ -72,9 +73,27 @@ function Details()
 	 // $(".inner-tab").tabs()//.addClass( "ui-tabs-vertical ui-helper-clearfix" );
 		//$( ".inner-tab li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );	
 	  $( "#tabs" ).tabs({
-		  selected:1 
+		  selected:1,
+		  select: function(event, ui) { 
+		  		
+		  		var arr = ui.panel.id.split("-");
+				
+				var id = arr[1];
+				
+				id = parseInt(id);
+				if(id == "search" || isNaN(id) )
+				{
+					
+					$("#chat-header").html("Live Chat");
+					return;
+				}
+				else
+				{
+					$("#chat-header").html("Asking Help For: &nbsp;&nbsp;&nbsp;"+g_patient_info[id]['name'] + ", " + g_patient_info[id]['insurance']);
+				}
+				currentId = id;
+		 	 } 
 		  });	
-	  
 	}
 	
 	this.PatientTab = function (id, val, skipList)
@@ -207,10 +226,13 @@ function Details()
 		function createPatientInfo (){
 			return $( "<div/>" )
 						.append(
-							$("<h4/>").append("Patient Info")
+							$("<h3 align='center'/>").append("Patient Information")
+						)
+						.append(
+							$("<h4/>").append("Personal Details")
 						)
 						.append( 
-							$("<p/>").append("DOB: " + val['DOB'])
+							$("<p/>").append("Date of birth: " + val['DOB'].substr(0,2) + "-" + val['DOB'].substr(2,2) + "-" + val['DOB'].substr(4,4))
 						)
 						.append(
 							$("<p/>").append("Address: " + val['address']['street']+ ' ' +val['address']['city']+ ' ' +val['address']['state']+ ' ' +val['address']['zip'])
@@ -228,16 +250,16 @@ function Details()
 							$("<h4/>").append("Physical")
 						)
 						.append( 
-							$("<p/>").append('Height: '+ val['physical']['height'])
+							$("<p/>").append('Height: '+ val['physical']['height'].substr(0,1) + "'" + val['physical']['height'].substr(1,1) + '"')
 						)
 						.append( 
-							$("<p/>").append('Weight: '+val['physical']['weight'] )
+							$("<p/>").append('Weight: '+val['physical']['weight'] + " kg" )
 						)
 						.append( 
 							$("<p/>").append('Age: '+ val['physical']['age'] )
 						)
 						.append( 
-							$("<p/>").append('Gender: '+ val['physical']['gender'] )
+							$("<p/>").append('Gender: '+ val['physical']['gender'].charAt(0).toUpperCase() + val['physical']['gender'].slice(1).toLowerCase())
 						)
 						
 			;	
@@ -246,70 +268,207 @@ function Details()
 		function createPatientHistory(){
 			var div = $( "<div/>" )
 						.append( 
-							$("<h4/>").append('History' )
-						)		
+							$("<h3 align='center'/>").append('History' )
+						)
 			;
+			var table = $("<table/>")
+								.attr("id", "history-table-"+id)
+								.addClass("history-table")
+								.append( $("<tr/>")
+									.append( $("<th/>").append("Treatment"))
+									.append( $("<th/>").append("Date"))
+								);
+			
 			$.each(val['patientHistory']['history'], function(index, element) {
-            	div.append(
-					$("<p/>").append('Treatment: ' + val['patientHistory']['history'][index]['treatment'])
-				)                
+            	table.append( $("<tr/>")
+						.append( $("<td/>")
+							.append(val['patientHistory']['history'][index]['treatment'])
+							.addClass("history-data")
+							)
+						.append( $("<td/>")
+							.append(randomDate())
+							.addClass("history-data")
+						)
+				)
             });
+			div.append(table);
 			return div;
 		};
+		function randomDate()
+		{
+			var day = Math.round(Math.random() * 28 + 1);
+			var	month = Math.round(Math.random() * 12 + 1);
+			var year = 2012;
+			return month + "-" + day + "-" + year;
+		}
 		function createTreatmentPlan(){
+			g_patient_info[id]["app_currentPlan"] = 0;
 			return $( "<div/>" )
 						.append( 
-							$("<h4/>").append('Treatment Plan' )
+							$("<h3 align='center'/>").append('Treatment Plan' )
 						)		
+						.append(
+							$ ( "<div/>" )
+								.append( 
+									$ ( "<table/>" )
+										.attr("id", "treat-table-"+id)
+										.append( $("<tr/>")
+											.append( $("<th/>").append( "Code / Treatment" ))
+											.append( $("<th/>").append( "Cost" ))
+											.append( $("<th/>").append( "Insured Sum" ))
+											.append( $("<th/>").append( "Overwrite Insured" ))
+										)
+										.append(addNewTreatment())
+								)
+								.append( $("<div/>")
+										.addClass("treat-total")
+										.attr("id", "treat-total-"+id)
+										.html(recalculateTreatmentCost())
+								)
+								
+								.append( $( "<button/>")
+										.click(function(){
+											$("#treat-table-"+currentId).append(addNewTreatment())
+											})
+										.append("Add Treatment")
+								)
+								.append( $( "<button/>")
+										.click(function(){
+											$("#treat-total-"+currentId).html(recalculateTreatmentCost());
+											})
+										.append("Recalculate")
+								)
+								.append( $( "<button/>")
+										.click(function(){
+											// Get each treatment, add to patient history
+											$(".treat-input-code-s-"+currentId).each(function(index, element) {
+                                                if($(element).val() == 'Select')
+													return;
+												var arr = $(element).val().split(": ");
+												var treatment = arr[1];
+												var d = new Date();
+												var curr_date = d.getDate();
+												var curr_month = d.getMonth();
+												var curr_year = d.getFullYear();
+												var date = curr_date + "-" + curr_date + "-" + curr_year;
+												$("#history-table-"+currentId).append(
+													$("<tr/>")
+														.append( $("<td/>").append(treatment))
+														.append( $("<td/>").append(date))
+													
+												)
+												
+                                            });
+											
+											// Clear this div											
+											$(".treat-row-"+currentId).remove();
+											$("#treat-table-"+currentId).append(addNewTreatment());
+											$("#treat-total-"+currentId).html(recalculateTreatmentCost());
+											})
+										.append("Complete Plan")
+								)
+						)
 						
 			;	
 			
+		};
+		
+		function recalculateTreatmentCost()
+		{
+			// get all the cost, insured, residue
+			var total_cost = 0;
+			$(".treat-input-cost-s-"+currentId).each(function(index, element) {
+				//console.log(element);
+				var val = $(this).html();
+                if(!isNaN(parseInt(val)))
+					total_cost += parseInt(val);
+				
+            });
+			var insured_cost = 0;
+			$(".treat-input-insured-s-"+currentId).each(function(index, element) {
+				//console.log(element);
+				var insured = $(this).html();
+				var arr = $(this).attr("id").split("-");
+				var id = arr[1];
+				var overwrite = $("#toverwrite-"+id).val();
+				
+                if(!isNaN(parseInt(overwrite)))
+					insured_cost += parseInt(overwrite);
+				else if(!isNaN(parseInt(insured)))
+					insured_cost += parseInt(insured);
+					
+				
+            });
+			return "Total Cost: $" + total_cost + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Insured: $" + insured_cost + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Payment Pending: $" + (total_cost - insured_cost);
+			
+		}
+		function addNewTreatment()
+		{
+			var tid = g_patient_info[currentId]["app_currentPlan"]++;
+			
+			return  $("<tr/>")
+						.addClass("treat-row-"+currentId)
+						.append( $("<td/>")
+							.addClass("treat-input-code")	
+							.append( getTreatmentCodes(tid))
+						)
+						.append( $("<td/>")
+							.addClass("treat-input-cost")	
+							.append( $("<span/>")
+								.addClass("treat-input")	
+								.addClass("treat-input-cost-s-"+currentId)	
+								.attr("id", "tcost-"+tid)
+							)						
+						)
+						.append( $("<td/>")
+							.addClass("treat-input-insured")	
+							.append( $("<span/>")
+								.addClass("treat-input")
+								.addClass("treat-input-insured-s-"+currentId)	
+								.attr("id", "tinsured-"+tid)
+							)						
+						)
+						.append( $("<td/>")
+							.addClass("treat-input-overwrite")	
+							.append( $("<input/>")
+								.addClass("treat-input-overwrite-s-"+currentId)	
+								.addClass("treat-input")	
+								.attr("id", "toverwrite-"+tid)
+							)						
+						)
+
+		};
+		function getTreatmentCodes(tid)
+		{
+			if(!id)
+				id = currentId;
+			var select_dom = $("<select/>")
+								.addClass("treat-input-code-s-"+id)	
+								.addClass("treat-input")
+								.attr("id", "tcode-"+tid)								
+								.change(function(){
+									
+									var arr = $(this).val().split(":");
+									var id = arr[0];
+									
+									var arr2 = $(this).attr("id").split("-");
+									var tid = arr2[1];
+									$("#tname-"+tid).html(g_treatment_info[id]['treatment']);
+									$("#tcost-"+tid).html(g_treatment_info[id]['fee']);
+									var percent = parseFloat(g_treatment_info[id]['fee']) * parseFloat(g_treatment_info[id]['insuranceCovered']["company"][0]['percentage']) / 100 
+									$("#tinsured-"+tid).html(percent);
+									
+									$("#treat-total-"+currentId).html(recalculateTreatmentCost());
+									})
+								;
+			select_dom.append( $("<option/>").append("Select"));
+			for ( x in g_treatment_info )
+				select_dom.append( $("<option/>")
+						.append(x + ": " + g_treatment_info[x]['treatment'])
+						);
+			return select_dom;
 		};
 
 	}
 
 }
-
-
-/*
-$('#list-of-patients').append('<li><a href=\"#tabs-'+ counter + '\">' + val['name'] + '</a></li>');
-		$('#tabs').append('<div id=tabs-' + counter +' ></div>');
-	
-		var sub_tab = '<div id=\"inner-tabs'+ counter +'\"><ul id="list-of-menu"><li><a href="#tabs1">Coverage Plan</a></li><li><a href="#tabs2">Patient Info</a></li><li><a href="#tabs3">Patient History</a></li><li><a href="#tabs4">Treatment Plan</a></li></ul>';
-		
-		
-		sub_tab += '<div id=\"tabs'+ 1 +'\">';
-		sub_tab +='</div>';
-	
-		sub_tab += '<div id=\"tabs'+ 2 +'\">';
-		sub_tab += '<h4>patient info</h4><p>DOB: ' + val['DOB']+ '</p>' + '<p>Address: '+ val['address']['street']+ ' ' +val['address']['city']+ ' ' +val['address']['state']+ ' ' +val['address']['zip'] + '</p>';
-		sub_tab += '<h4>Insurance</h4><p>Company: '+ val['insurance']+ '</p><p>ID#: '+ val['insuranceNumber'] + '</p>';
-		sub_tab += '<h4>Physical</h4><p>Height: '+ val['physical']['height'] + '</p><p>Weight: '+val['physical']['weight'] +'</p><p>Age: '+ val['physical']['age'] +'</p><p>Gender: '+ val['physical']['gender'] + '</p>';
-		sub_tab += '</div>';
-	
-		sub_tab += '<div id=\"tabs'+ 3 +'\"><h4>History</h4>';
-	
-		for(var index = 0; index < val['patientHistory']['history'].length; index++)
-		{
-		  sub_tab += '<p>ID: ' + val['patientHistory']['history'][index]['id'] +' ';
-		  sub_tab +=  'Treatment: ' + val['patientHistory']['history'][index]['treatment']+ '</p>';
-		}
-		sub_tab += '</div>';
-	
-		sub_tab += '<div id=\"tabs'+ 4 +'\"><h4>Treatment Plan</h4>';
-		
-
-	
-		sub_tab +='</div>';
-	
-		sub_tab += '</div>';
-	
-		var tabs_id = '#tabs-' + counter;
-		$(tabs_id).append(sub_tab);
-	
-		$( "#inner-tabs" + counter).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
-		$( "#inner-tabs" + counter + " li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
-	
-		counter++;
-	  });
-*/
