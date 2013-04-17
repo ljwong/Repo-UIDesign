@@ -7,8 +7,8 @@ body {
 #chatbox
 {
 	width:500px;
-	margin-left:850px;
-	min-height: 450px;
+	margin-left:650px;
+	min-height: 480px;
 	height: 350px;
 	padding: 5px;
 	display:inline-block;
@@ -19,17 +19,26 @@ body {
 #searchbox
 {
 
-	width:830px;
-	height: 350px;	
+	width:630px;
+	height: 380px;	
 
 	/*width:50%;*/
 	/*min-width: 50%;*/
-	min-height: 200px;	
+	min-height: 250px;	
 
 	padding: 5px;
 	
 	display:inline-block;
 	position:absolute;
+	
+}
+input[type="text"]
+{
+    font-size:24px;
+}
+#generaltab
+{
+	font-size:24px;
 }
 
 #detailsbox

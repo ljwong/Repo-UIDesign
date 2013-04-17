@@ -28,26 +28,39 @@
 	<script type="text/javascript">
 		var g_patient_info = new Array();
         var g_treatment_info = new Array();
+		var g_autocomplete_names = new Array();
+		var g_autocomplete_treatment = new Array();
+		var g_treatmentSearch = "";
    		var Details = new Details();
 		 
 		$(document).ready(function(){
 			// This gets called when the app is ready.
-      $("#searchtabs").tabs();
+      //$("#searchtabs").tabs();
       $.getJSON('data/treatment_info.json', function(data){
               
               $.each(data, function(key, val) {
                 g_treatment_info[val['id']] = val;
-				
+				g_autocomplete_treatment.push(val['treatment']);
               });
-
+			$("#treatment").autocomplete({source: g_autocomplete_treatment});
       }); 
 
       $.getJSON('data/patient_info.json', function(data){
               g_patient_info = data;
+			  for (x in g_patient_info)
+			  {
+				 g_autocomplete_names.push( g_patient_info[x]['name'] ); 
+			  }
+			  $("#generalname").autocomplete({source: g_autocomplete_names});
 			  Details.init();
+			  
       });
-
-      
+      	$("#generaldob").datepicker({     
+			 	maxDate: new Date(),
+				minDate: "-130y",
+				defaultDate: "-30y",
+				changeMonth: true,
+      			changeYear: true});
 		
 
     	
@@ -74,31 +87,33 @@
 
     	<!-- Two search tabs -->
         <div id="searchtabs">
+        <!--
         <ul >
     		<li class="">
     			<a href="#existtab" class="searchtab"> Search Existing Patient </a>
     		</li>
     		<li><a href="#generaltab" class="searchtab"> Quick Insurance Search </a></li>
     	</ul>
-        
+        -->
         <!-- content of each tab -->
+        <!--
     		<div id="existtab" class="search-tab-content">
         		
         			NAME : <input type="text" id="existname"><br>
         			DOB (mm/dd/yyyy) : <input type="text" id="existdob" size=11><br><br><br>
         			<button onclick="SearchForExistingPatient();"> Search Existing Patient </button>
         		
-        	</div>
+        	</div>-->
+            
         	<div id="generaltab" class="search-tab-content">
-        		
-        			NAME : <input type="text" id="generalname"><br>
-        			SS# : <input type="text" id="ssnum"><br>
-        			INSURANCE : <input type="text" id="insurance"><br>
-        			INSURANCE# : <input type="text" id="insurancenum"><br>
-        			TREATMENT : <input type="text" id="treatment"><br>
-        			DOB (mm/dd/yyyy) : <input type="text" id="generaldob" size=11><br>
-        			<button onclick="GeneralSearch()"> Search Insurance </button>
-        		
+        			Name : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="generalname"><br>
+        			Date of Birth : <input type="text" id="generaldob" > <br><br><br>
+        			SSN : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="ssnum"><br>
+        			Insurance Agent : &nbsp;&nbsp; <input type="text" id="insurance"><br>
+        			Insurance Number : <input type="text" id="insurancenum"><br>
+        			Treatment : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" id="treatment"><br><br>
+        			<button onclick="GeneralSearch()" style="font-size:24px"> Search Insurance </button>
+        			<div><span class="ui-state-error-text" id="search_error" style="font-size:24px"></span></div>
         	</div>
         </div>
     	
@@ -110,9 +125,11 @@
 	<div id="chatbox">
         <!-- Chat box HTML code comes here.-->
         <div align="center"><h3 id="chat-header">Live Chat</h3></div>
-        <div style="height:350px;">
+        <div style="height:350px;"><iframe style='overflow:hidden;width:100%;height:100%;' frameborder='0' border='0' src="http://chat.zoho.com/mychat.sas?u=dd3fb2b74247badc5547739b0c0e4f1d&chaturl=Chat&V=000000-696969-eff4f9-696969-Customer%20Service"></iframe></div>
+        
+        <!--<div style="height:350px;">
 		<iframe style='overflow:hidden;width:100%;height:100%;' frameborder='0' border='0' src="http://chat.zoho.com/mychat.sas?u=0cb901437ee184535547739b0c0e4f1d&chaturl=David%20Zhao&V=000000-70a9e1-eff4f9-70a9e1-Speak%20to%20a%20Representative"></iframe>
-		</div>
+		</div>-->
         <div align="center"><h5>Unsure about a treatment coverage? Ask someone now.</h5></div>
 	</div>
 	

@@ -45,13 +45,19 @@ function Details()
 	this.addPatientTab = function(id)
 	{
 		//console.log();
+		g_patient_info[id]["app_currentTreatmentSearch"] = g_treatmentSearch;
+		g_treatmentSearch = "";
 		if($("#tabs-"+id).length > 0)
 		{
+			$("#coverage_treatment_result-"+id).html(g_patient_info[id]["app_currentTreatmentSearch"] + getTreatmentVerification());
 			$( "#tabs" ).tabs("select", "#tabs-"+id);
+			
 			return;
 		}
 		$( "#tabs" ).tabs("add", "#tabs-"+id, g_patient_info[id]['name']);		
 		this.PatientTab (id, g_patient_info[id], true);
+		$("#coverage_treatment_result-"+id).html(g_patient_info[id]["app_currentTreatmentSearch"] + getTreatmentVerification());
+
 		$("#tabs").tabs("select", "#tabs-"+id);
 		
 	}
@@ -138,6 +144,9 @@ function Details()
 					.append($("<div/>")
 						.addClass("sidebar")
 						.append( $("<div/>")
+							.append("<h3 align='center'>Menu</h3>")
+							.css("border-bottom", "2px solid black"))
+						.append( $("<div/>")
 							.addClass("sidebar-element") 
 							.click(function(){
 									
@@ -221,12 +230,25 @@ function Details()
 				
 		};
 		function createCoveragePlan (){
-			return $( "<div/>" );	
+			return $( "<div/>" )
+						.append(
+							$("<h3 align='center'/>").append("Coverage Plan").css("text-decoration", "underline")
+						)
+						.append( $("<div/>")
+							.append($("<h4/>")
+								.attr("id", "coverage_treatment_result-"+id)
+								.css("color", "#930")
+							)
+						)
+						.append( $("<div/>")
+							.append(randomCoveragePlan())
+						)
+			;	
 		};
 		function createPatientInfo (){
 			return $( "<div/>" )
 						.append(
-							$("<h3 align='center'/>").append("Patient Information")
+							$("<h3 align='center'/>").append("Patient Information").css("text-decoration", "underline")
 						)
 						.append(
 							$("<h4/>").append("Personal Details")
@@ -268,7 +290,7 @@ function Details()
 		function createPatientHistory(){
 			var div = $( "<div/>" )
 						.append( 
-							$("<h3 align='center'/>").append('History' )
+							$("<h3 align='center'/>").append('History' ).css("text-decoration", "underline")
 						)
 			;
 			var table = $("<table/>")
@@ -305,7 +327,7 @@ function Details()
 			g_patient_info[id]["app_currentPlan"] = 0;
 			return $( "<div/>" )
 						.append( 
-							$("<h3 align='center'/>").append('Treatment Plan' )
+							$("<h3 align='center'/>").append('Treatment Plan' ).css("text-decoration", "underline")
 						)		
 						.append(
 							$ ( "<div/>" )
@@ -350,11 +372,11 @@ function Details()
 												var curr_date = d.getDate();
 												var curr_month = d.getMonth();
 												var curr_year = d.getFullYear();
-												var date = curr_date + "-" + curr_date + "-" + curr_year;
+												var date_s = curr_month + "-" + curr_date + "-" + curr_year;
 												$("#history-table-"+currentId).append(
 													$("<tr/>")
 														.append( $("<td/>").append(treatment))
-														.append( $("<td/>").append(date))
+														.append( $("<td/>").append(date_s))
 													
 												)
 												
@@ -468,7 +490,29 @@ function Details()
 						);
 			return select_dom;
 		};
+		
+		function randomCoveragePlan()
+		{
+			var arr = [
+				'Plan Type:  PPO<br />Deductible: $7,500<br />Coinsurance: 0%<br />Office Visit for Primary Doctor: No Charge after deductible<br />Office Visit for Specialist: No Charge after deductible<br />Coinsurance: No Charge after deductible<br />Annual Deductible: Individual:$7,500<br />Separate Prescription Drugs Deductible: $1000 Individual; Applies to Levels 2, 3, 4<br />Prescription Drugs: Generic: Rx Deductible for Levels 2, 3, 4, then Level 1: $15 copay; Level 2: $40 copay; Level 3: $65 copay; Level 4: 35% copay up to $5,000 maximum out of pocket. Levels based on specific drug <br />Brand: Rx Deductible for Levels 2, 3, 4, then Level 1: $15 copay; Level 2: $40 copay; Level 3: $65 copay; Level 4: 35% copay up to $5,000 maximum out of pocket. Levels based on specific drug <br />Non-Formulary: Rx Deductible for Levels 2, 3, 4, then Level 1: $15 copay; Level 2: $40 copay; Level 3: $65 copay; Level 4: 35% copay up to $5,000 maximum out of pocket. Levels based on specific drug<br />Annual Out-of-Pocket Limit: Individual:$7,500 Includes deductible<br />',
+				'Plan Type: Network<br />Office Visit for Primary Doctor: History and Exam: visit 1-4 $35 copay, deductible waived; visit 5+ deductible then 30% Coinsurance<br />Office Visit for Specialist: History and Exam: visit 1-4 $35 copay, deductible waived; visit 5+ deductible then 30% Coinsurance<br />Coinsurance: 30% after deductible<br />Annual Deductible: Individual:$10,000<br />Separate Prescription Drugs Deductible: None<br />Prescription Drugs: Generic: $15 Copay, no deductible <br />Brand: Not Covered <br />Non-Formulary: Not Covered <br />(See sample list of drug)<br />Annual Out-of-Pocket Limit: Individual:$10,000<br />Does not include deductible<br />Lifetime Maximum: Unlimited<br />Health Savings Account (HSA) Eligible: No<br />Out-of-Network Coverage: Yes  <br />',
+				'Plan Type: PPO<br />Office Visit for Primary Doctor: 100% after $20 doctor office visit copay<br />Office Visit for Specialist: 100% after $20 doctor office visit copay<br />Coinsurance: None<br />Annual Deductible: Individual:$1,000<br />Separate Prescription Drugs Deductible: Medical Plan Deductible Applies<br />Prescription Drugs: Generic: 20% Coinsurance after deductible <br />Brand: 20% Coinsurance after deductible <br />Non-Formulary: 20% Coinsurance after deductible<br />Annual Out-of-Pocket Limit: Individual:$1,000<br />Does not include deductible<br />Lifetime Maximum: Unlimited<br />Health Savings Account (HSA) Eligible:  No<br />Out-of-Network Coverage: Yes  (Details in plan brochure below)<br />Out of Country Coverage: Yes. Paid as in-network benefits if through a WorldWide BlueCard Provider <br />'
+				
+			];
+			return arr[Math.round(Math.random()*2)];
+		};
 
 	}
+	function getTreatmentVerification()
+	{
+		var arr = [	" : not covered under this plan.", 
+					" : 100% covered under this plan.",
+					" : 80% covered under this plan.",
+					" : 70% covered under this plan.",
+					" : 30% covered under this plan.",
+					" : 15% covered under this plan.",
+					];
+		return arr[Math.round(Math.random()*arr.length)];
+	};
 
 }
