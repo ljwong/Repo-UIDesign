@@ -258,7 +258,7 @@ function Details()
 							$("<h4/>").append("Personal Details")
 						)
 						.append( 
-							$("<p/>").append("Date of birth: " + val['DOB'].substr(0,2) + "-" + val['DOB'].substr(2,2) + "-" + val['DOB'].substr(4,4))
+							$("<p/>").append("Date of birth: " + val['DOB'].substr(0,2) + "-" + val['DOB'].substr(3,2) + "-" + val['DOB'].substr(6,4))
 						)
 						.append(
 							$("<p/>").append("Address: " + val['address']['street']+ ' ' +val['address']['city']+ ' ' +val['address']['state']+ ' ' +val['address']['zip'])
@@ -276,10 +276,10 @@ function Details()
 							$("<h4/>").append("Physical")
 						)
 						.append( 
-							$("<p/>").append('Height: '+ val['physical']['height'].substr(0,1) + "'" + val['physical']['height'].substr(1,1) + '"')
+							$("<p/>").append('Height: '+ val['physical']['height'].substr(0,1) + "' " + val['physical']['height'].substr(1,1) + '"')
 						)
 						.append( 
-							$("<p/>").append('Weight: '+val['physical']['weight'] + " kg" )
+							$("<p/>").append('Weight: '+ (Math.round(parseInt(val['physical']['weight']) * 1.5)) + " lb" )
 						)
 						.append( 
 							$("<p/>").append('Age: '+ val['physical']['age'] )
