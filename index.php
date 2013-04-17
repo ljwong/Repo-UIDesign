@@ -7,8 +7,9 @@
     <!--
 <link type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/start/jquery-ui.css" rel="stylesheet" />-->
 <link type="text/css" href="css/jquery-ui-1.8.24.custom.css" rel="stylesheet" />
+<!--
 <link type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/smoothness/jquery-ui.css" rel="stylesheet" />
-    
+    -->
 	<script type="text/javascript" src="js/lib/d3.v3.min.js"></script>
 
 	<script type="text/javascript" src="js/view/chat.js"></script>
@@ -62,7 +63,8 @@
 				changeMonth: true,
       			changeYear: true});
 		
-
+		$("button").addClass("ui-corner-all");
+		
     	
 			
 		});
@@ -125,7 +127,7 @@
 	<div id="chatbox">
         <!-- Chat box HTML code comes here.-->
         <div align="center"><h3 id="chat-header">Live Chat</h3></div>
-        <div style="height:350px;"><iframe style='overflow:hidden;width:100%;height:100%;' frameborder='0' border='0' src="http://chat.zoho.com/mychat.sas?u=dd3fb2b74247badc5547739b0c0e4f1d&chaturl=Chat&V=000000-696969-eff4f9-696969-Customer%20Service"></iframe></div>
+        <div style="height:350px;"><iframe style='overflow:hidden;width:100%;height:100%;' frameborder='0' border='0' src="http://chat.zoho.com/mychat.sas?u=dd3fb2b74247badc5547739b0c0e4f1d&chaturl=Chat&V=000000-f7a6ea-eff4f9-f7a6ea-Customer%20Service"></iframe></div>
         
         <!--<div style="height:350px;">
 		<iframe style='overflow:hidden;width:100%;height:100%;' frameborder='0' border='0' src="http://chat.zoho.com/mychat.sas?u=0cb901437ee184535547739b0c0e4f1d&chaturl=David%20Zhao&V=000000-70a9e1-eff4f9-70a9e1-Speak%20to%20a%20Representative"></iframe>

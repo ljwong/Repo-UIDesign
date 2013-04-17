@@ -148,6 +148,7 @@ function Details()
 							.css("border-bottom", "2px solid black"))
 						.append( $("<div/>")
 							.addClass("sidebar-element") 
+							.addClass("ui-corner-all") 
 							.click(function(){
 									
 									$(".pd-"+id).css("display", "none");
@@ -161,6 +162,7 @@ function Details()
 						)
 						.append( $("<div/>") 
 							.addClass("sidebar-element")
+							.addClass("ui-corner-all") 
 							.append( $("<a/>")
 								.attr("href", "#patient_info_tab")
 								.click(function(){
@@ -174,6 +176,7 @@ function Details()
 						)
 						.append( $("<div/>") 
 							.addClass("sidebar-element")
+							.addClass("ui-corner-all") 
 							.click(function(){
 									
 									$(".pd-"+id).css("display", "none");
@@ -187,6 +190,7 @@ function Details()
 						)
 						.append( $("<div/>") 
 							.addClass("sidebar-element")
+							.addClass("ui-corner-all") 
 							.click(function(){
 									
 									$(".pd-"+id).css("display", "none");
@@ -348,19 +352,22 @@ function Details()
 										.html(recalculateTreatmentCost())
 								)
 								
-								.append( $( "<button/>")
+								.append( $( "<button style='margin:10px;'/>")
+										.addClass("ui-corner-all")
 										.click(function(){
 											$("#treat-table-"+currentId).append(addNewTreatment())
 											})
 										.append("Add Treatment")
 								)
-								.append( $( "<button/>")
+								.append( $( "<button style='margin:10px;'/>")
+										.addClass("ui-corner-all")
 										.click(function(){
 											$("#treat-total-"+currentId).html(recalculateTreatmentCost());
 											})
 										.append("Recalculate")
 								)
-								.append( $( "<button/>")
+								.append( $( "<button style='margin:10px;'/>")
+										.addClass("ui-corner-all")
 										.click(function(){
 											// Get each treatment, add to patient history
 											$(".treat-input-code-s-"+currentId).each(function(index, element) {

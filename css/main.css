@@ -1,7 +1,7 @@
 body {
 	margin: 0;
 	padding: 0 !important;
-	
+	background-color:#fff0fc;	
 }
 
 #chatbox
@@ -79,7 +79,7 @@ input[type="text"]
 	display:inline-block;
 }
 .menu-deco:hover{
-	border-bottom:thick solid #900;
+	border-bottom:thick solid #f7a6ea;
 	cursor:pointer;
 	cursor:hand;
 }
