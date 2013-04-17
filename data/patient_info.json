@@ -5,7 +5,7 @@
 		"name": "Erin Anderson",
 		"insurance": "BlueCross",
 		"insuranceNumber": "3235527890",
-		"DOB": "03291985",
+		"DOB": "03/29/1985",
 		"address":
 			{
 				"street": "7254 N Zhou Street",
@@ -40,7 +40,7 @@
 		"name": "Peter Sy",
 		"insurance":"UnitedHealthOne",
 		"insuranceNumber": "1334267893",
-		"DOB": "04191973",
+		"DOB": "04/19/1973",
 		"address":
 			{
 				"street": "13228 E Desert Drive",
@@ -74,7 +74,7 @@
 		"name": "Julian Martin",
 		"insurance":"State Farm",
 		"insuranceNumber": "8284167812",
-		"DOB": "12131992",
+		"DOB": "12/13/1992",
 		"address":
 			{
 				"street": "1227 E Washington Drive",
@@ -108,7 +108,7 @@
 		"name": "Andy Sczponder",
 		"insurance":"UnitedHealthOne",
 		"insuranceNumber": "1214167190",
-		"DOB": "01012005",
+		"DOB": "01/01/2005",
 		"address":
 			{
 				"street": "312 E Bay Street",
@@ -141,7 +141,7 @@
 		"name": "Sunil Patel",
 		"insurance":"State Farm",
 		"insuranceNumber": "2531537890",
-		"DOB": "08291989",
+		"DOB": "08/29/1989",
 		"address":
 			{
 				"street": "502 N Dump Street",
@@ -175,7 +175,7 @@
 		"name": "Xichen Shi",
 		"insurance":"UnitedHealthOne",
 		"insuranceNumber": "5531527390",
-		"DOB": "09111985",
+		"DOB": "09/11/1985",
 		"address":
 			{
 				"street": "228 E Olive Drive",
@@ -209,7 +209,7 @@
 		"name": "Elie Banoma",
 		"insurance":"State Farm",
 		"insuranceNumber": "7204060890",
-		"DOB": "02221965",
+		"DOB": "02/22/1965",
 		"address":
 			{
 				"street": "903 E First Street",
@@ -243,7 +243,7 @@
 		"name": "Cassie McDonald",
 		"insurance":"Humana",
 		"insuranceNumber": "8224562830",
-		"DOB": "03211980",
+		"DOB": "03/21/1980",
 		"address":
 			{
 				"street": "801 E Second Street",
@@ -277,7 +277,7 @@
 		"name": "Conner O'Connor",
 		"insurance":"UnitedHealthOne",
 		"insuranceNumber": "1736557391",
-		"DOB": "05091969",
+		"DOB": "05/09/1969",
 		"address":
 			{
 				"street": "108 E Thrid Street",
@@ -311,7 +311,7 @@
 		"name": "Danny Zeskind",
 		"insurance":"Humana",
 		"insuranceNumber": "9836557392",
-		"DOB": "02281982",
+		"DOB": "02/28/1982",
 		"address":
 			{
 				"street": "53228 S Main St",
